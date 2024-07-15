@@ -1,5 +1,6 @@
 # flutter-monorepo-initializer
 [![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
+
 Scripts to initialize Flutter Mono-Repository
 
 ## Prerequires
