@@ -1,0 +1,9 @@
+﻿name: example
+
+packages:
+  - apps/**
+  - packages/**
+
+scripts:
+  clean-pubspec-overrides:
+    run: bash clean-pubspec-overrides.sh
