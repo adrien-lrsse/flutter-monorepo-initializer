@@ -54,6 +54,18 @@ else {
   Write-Host ""
 }
 
+# Activate Very Good globally cli
+Write-Host "$loading Activating Very Good CLI globally..."
+if (!(dart pub global activate very_good_cli)) {
+  Write-Host "$failed Failed to activate Very Good CLI."
+  Write-Host ""
+  exit 1
+}
+else {
+  Write-Host "$valid Very Good CLI activated globally."
+  Write-Host ""
+}
+
 # Create the 'apps' and 'packages' directories at the root
 Write-Host "$folder Creating 'apps' and 'packages' directories at the root..."
 $appsDir = New-Item -ItemType Directory -Path "apps" -ErrorAction SilentlyContinue
@@ -157,6 +169,73 @@ very_good create flutter_package package_name --desc "Package Description"
 $accentGrave$accentGrave$accentGrave
 "@ | Out-File -Encoding utf8 README.md
 Write-Output ""
+
+
+# Add README.md file in 'apps' directory
+Write-Output "$memo Add 'README.md' file in 'apps' directory !"
+@"
+# apps
+[![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
+
+This directory contains all the applications for the project.
+
+## Create a new Flutter app
+
+$accentGrave$accentGrave$accentGrave bash
+flutter create app
+$accentGrave$accentGrave$accentGrave
+
+## Add a $accentGrave .env $accentGrave
+
+In the root app folder, create a $accentGrave .env $accentGrave file and the in the $accentGrave pubspec.yaml $accentGrave, add the next section in $accentGrave flutter $accentGrave :
+
+$accentGrave$accentGrave$accentGrave yaml
+flutter:
+  assets:
+    - .env
+$accentGrave$accentGrave$accentGrave
+
+## Add a local package dependencies
+
+If you want to add the package $accentGrave my_package $accentGrave created in the $accentGrave packages/ $accentGrave folder in your app. Open $accentGrave pubspec.yaml $accentGrave and in the $accentGrave dependencies $accentGrave section add the following line :
+
+$accentGrave$accentGrave$accentGrave yaml
+dependencies:
+    my_package:
+$accentGrave$accentGrave$accentGrave
+
+Then, to update the dependencies, run the following command :
+$accentGrave$accentGrave$accentGrave bash
+melos bootstrap
+$accentGrave$accentGrave$accentGrave
+
+"@ | Out-File -Encoding utf8 .\apps\README.md
+Write-Output ""
+
+# Add README.md file in 'packages' directory
+Write-Output "$memo Add 'README.md' file in 'packages' directory !"
+@"
+# packages
+
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+
+This directory contains all the packages for the project.
+
+## Init a package
+
+To init a new package, we use $accentGrave very_good_cli $accentGrave . The library provide template for package and app.
+
+To create a new package, run the command :
+
+$accentGrave$accentGrave$accentGrave bash
+very_good create flutter_package package_name --desc "Package Description"
+$accentGrave$accentGrave$accentGrave
+
+
+
+"@ | Out-File -Encoding utf8 .\packages\README.md
+Write-Output ""
+
 
 try {
   Write-Host "$loading Running the melos bootstrap command..."
